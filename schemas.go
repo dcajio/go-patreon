@@ -1,24 +1,27 @@
 package main
 
 type UserAttributes struct {
-	FirstName   string            `json:"first_name"`
-	LastName    string            `json:"last_name"`
-	FullName    string            `json:"full_name"`
-	Gender      string            `json:"gender"`
-	Vanity      string            `json:"vanity"`
-	About       string            `json:"about"`
-	FacebookID  string            `json:"facebook_id"`
-	ImageURL    string            `json:"image_url"`
-	ThumbURL    string            `json:"thumb_url"`
-	Thumbnails  map[string]string `json:"thumbnails"`
-	Youtube     string            `json:"youtube"`
-	Twitter     string            `json:"twitter"`
-	Facebook    string            `json:"facebook"`
-	IsSuspended bool              `json:"is_suspended"`
-	IsDeleted   bool              `json:"is_deleted"`
-	IsNuked     bool              `json:"is_nuked"`
-	Created     int               `json:"created"`
-	URL         string            `json:"url"`
+	FirstName        string            `json:"first_name"`
+	LastName         string            `json:"last_name"`
+	FullName         string            `json:"full_name"`
+	Gender           string            `json:"gender"`
+	Vanity           string            `json:"vanity"`
+	About            string            `json:"about"`
+	FacebookID       string            `json:"facebook_id"`
+	ImageURL         string            `json:"image_url"`
+	ThumbURL         string            `json:"thumb_url"`
+	Thumbnails       map[string]string `json:"thumbnails"`
+	Youtube          string            `json:"youtube"`
+	Twitter          string            `json:"twitter"`
+	Facebook         string            `json:"facebook"`
+	IsSuspended      bool              `json:"is_suspended"`
+	IsDeleted        bool              `json:"is_deleted"`
+	IsNuked          bool              `json:"is_nuked"`
+	Created          int               `json:"created"`
+	URL              string            `json:"url"`
+	LikeCount        int               `json:"like_count"`
+	HidePledges      bool              `json:"hide_pledges"`
+	TwoFactorEnabled bool              `json:"two_factor_enabled"`
 }
 
 type UserBase struct {
@@ -33,6 +36,7 @@ type User struct {
 	UserBase
 	Relationships struct {
 		Campaign Campaign `json:"campaign"`
+		Pledges  []Pledge `json:"pledges"`
 	} `json:"relationships"`
 }
 
@@ -70,9 +74,7 @@ type Campaign struct {
 	Relationships struct {
 		Creator UserBase `json:"creator"`
 		Rewards []Reward `json:"reward"`
-
-		// Goals
-		// - Same as above
+		Goals   []Goal   `json:"goals"`
 
 		Pledges []Pledge `json:"pledges"`
 	} `json:"relationships"`
@@ -120,4 +122,12 @@ type Reward struct {
 	Relationships    struct {
 		Creator UserBase `json:"creator"`
 	} `json:"relationships"`
+}
+
+type Goal struct {
+	AmountCents int    `json:"amount_cents"`
+	Title       string `json:"title"`
+	Description string `json:"description"`
+	CreatedAt   int    `json:"created_at"`
+	ReachedAt   int    `json:"reached_at"`
 }
