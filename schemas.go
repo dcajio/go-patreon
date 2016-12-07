@@ -69,9 +69,7 @@ type Campaign struct {
 	Attributes    CampaignAttributes `json:"attributes"`
 	Relationships struct {
 		Creator UserBase `json:"creator"`
-
-		// Rewards
-		// - Need to make API calls to get the JSON definition for this, since the API doesn't describe it
+		Rewards []Reward `json:"reward"`
 
 		// Goals
 		// - Same as above
@@ -94,9 +92,7 @@ type Pledge struct {
 	Relationships struct {
 		Patron  Patron   `json:"patron"`
 		Creator UserBase `json:"creator"`
-
-		// Reward
-		// - Need to make API calls to get the JSON definition for this, since the API doesn't describe it
+		Reward  Reward   `json:"reward"`
 
 		// Address
 		// - Same as above
@@ -108,5 +104,20 @@ type Pledge struct {
 		// - Same as above
 
 		// Seriously, is a swagger.json/proper documentation too much to ask for?
+	} `json:"relationships"`
+}
+
+type Reward struct {
+	Amount           int    `json:"amount"`
+	AmountCents      int    `json:"amount_cents"`
+	UserLimit        int    `json:"user_limit"`
+	Remaining        int    `json:"remaining"`
+	Description      string `json:"description"`
+	RequiresShipping bool   `json:"requires_shipping"`
+	CreatedAt        int    `json:"created_at"`
+	URL              string `json:"url"`
+	PatronCount      int    `json:"patron_count"`
+	Relationships    struct {
+		Creator UserBase `json:"creator"`
 	} `json:"relationships"`
 }
