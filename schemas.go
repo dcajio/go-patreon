@@ -21,13 +21,23 @@ type UserAttributes struct {
 	URL         string            `json:"url"`
 }
 
+type UserBase struct {
+	Type       string         `json:"type"`
+	ID         string         `json:"id"`
+	Attributes UserAttributes `json:"attributes"`
+	// I really wish Patreon just used proper linked relationships instead
+	// of burying relationships inside of another struct
+}
+
 type User struct {
-	Type          string         `json:"type"`
-	ID            string         `json:"id"`
-	Attributes    UserAttributes `json:"attributes"`
+	UserBase
 	Relationships struct {
 		Campaign Campaign `json:"campaign"`
 	} `json:"relationships"`
+}
+
+type Patron struct {
+	UserBase
 }
 
 type CampaignAttributes struct {
@@ -54,9 +64,20 @@ type CampaignAttributes struct {
 }
 
 type Campaign struct {
-	Type       string             `json:"type"`
-	ID         string             `json:"id"`
-	Attributes CampaignAttributes `json:"attributes"`
+	Type          string             `json:"type"`
+	ID            string             `json:"id"`
+	Attributes    CampaignAttributes `json:"attributes"`
+	Relationships struct {
+		Creator UserBase `json:"creator"`
+
+		// Rewards
+		// - Need to make API calls to get the JSON definition for this, since the API doesn't describe it
+
+		// Goals
+		// - Same as above
+
+		Pledges []Pledge `json:"pledges"`
+	} `json:"relationships"`
 }
 
 type PledgeAttributes struct {
@@ -67,7 +88,25 @@ type PledgeAttributes struct {
 }
 
 type Pledge struct {
-	Type       string           `json:"type"`
-	ID         string           `json:id"`
-	Attributes PledgeAttributes `json:"attributes"`
+	Type          string           `json:"type"`
+	ID            string           `json:id"`
+	Attributes    PledgeAttributes `json:"attributes"`
+	Relationships struct {
+		Patron  Patron   `json:"patron"`
+		Creator UserBase `json:"creator"`
+
+		// Reward
+		// - Need to make API calls to get the JSON definition for this, since the API doesn't describe it
+
+		// Address
+		// - Same as above
+
+		// Card
+		// - Same as above
+
+		// Pledge Vat Location
+		// - Same as above
+
+		// Seriously, is a swagger.json/proper documentation too much to ask for?
+	} `json:"relationships"`
 }
