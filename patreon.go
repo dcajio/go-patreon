@@ -12,20 +12,20 @@ const (
 	API_URL string = "https://api.patreon.com/oauth2/api/"
 )
 
-type Patreon struct {
+var (
 	AccessKey string
-}
+)
 
 // Fetches the current logged-in user
-func (p Patreon) GetCurrentUser() (error, User) {
+func GetCurrentUser() (error, User) {
 	url := API_URL + "current_user/"
 }
 
-func (p Patreon) GetCampaigns() (err, []Campaign) {
+func GetCampaigns() (err, []Campaign) {
 }
 
-func (p Patreon) GetCampaign(ID int) (err, Campaign) {
+func GetCampaign(ID int) (err, Campaign) {
 }
 
-func (p Patreon) GetPledgesByCampaign(Id int) (err, []Pledge) {
+func GetPledgesByCampaign(ID int) (err, []Pledge) {
 }
