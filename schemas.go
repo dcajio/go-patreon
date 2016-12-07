@@ -28,8 +28,6 @@ type UserBase struct {
 	Type       string         `json:"type"`
 	ID         string         `json:"id"`
 	Attributes UserAttributes `json:"attributes"`
-	// I really wish Patreon just used proper linked relationships instead
-	// of burying relationships inside of another struct
 }
 
 type User struct {
@@ -105,7 +103,6 @@ type Pledge struct {
 		// Pledge Vat Location
 		// - Same as above
 
-		// Seriously, is a swagger.json/proper documentation too much to ask for?
 	} `json:"relationships"`
 }
 
