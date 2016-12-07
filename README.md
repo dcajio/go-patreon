@@ -1,4 +1,4 @@
-# patreon-python (WIP - not usable yet)
+# go-patreon (WIP - not usable yet)
 
 Interact with the Patreon API via OAuth.
 
