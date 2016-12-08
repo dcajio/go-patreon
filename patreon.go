@@ -1,8 +1,8 @@
 package main
 
 import (
-	"net/http",
-	"gitlab.com/dcajio/patreon-go/schemas"
+	"net/http"
+	"strings"
 )
 
 func main() {
@@ -17,15 +17,28 @@ var (
 )
 
 // Fetches the current logged-in user
-func GetCurrentUser() (error, User) {
+func GetCurrentUser(inc ...string) (error, User) {
 	url := API_URL + "current_user/"
+
+	if len(inc) > 0 {
+		include_string := strings.Join(inc, ",")
+		url = url + "?include=" + include_string
+	}
+
+	return nil, User{}
 }
 
-func GetCampaigns() (err, []Campaign) {
+func GetCampaigns(inc ...string) (error, []Campaign) {
+	url := API_URL + "current_user/campaigns"
+
+	if len(inc) > 0 {
+		include_string := strings.Join(inc, ",")
+		url = url + "?include=" + include_string
+	}
 }
 
-func GetCampaign(ID int) (err, Campaign) {
+func GetCampaign(ID int) (error, Campaign) {
 }
 
-func GetPledgesByCampaign(ID int) (err, []Pledge) {
+func GetPledgesByCampaign(ID int) (error, []Pledge) {
 }
